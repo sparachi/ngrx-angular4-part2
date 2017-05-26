@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { NewOperation } from './new-operation.component';
 import { OperationsList } from './operation-list.component';
-import { operationsReducer } from './common/operations';
+import { appReducer } from './reducers/index';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { operationsReducer } from './common/operations';
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({operations: operationsReducer})
+    StoreModule.provideStore(appReducer)
   ],
   providers: [],
   bootstrap: [AppComponent]

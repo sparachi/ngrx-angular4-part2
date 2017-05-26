@@ -1,6 +1,6 @@
 //src/app/new-operation.component.ts 
 import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Operation } from "./common/operation.model";
+import { Operation } from "./models/operation.model";
 @Component({
     selector: 'new-operation',
     templateUrl: './new-operation.template.html',
