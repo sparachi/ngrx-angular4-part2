@@ -23,7 +23,7 @@ export class CustomCurrencyPipe implements PipeTransform {
     An alternative implementation would be to call getSelectedCurrency within the pipe 
     and get the selectedCurrency within the pipe. */
     transform(value: number, currency): string {
-        console.log('Inside transform of CustomCurrencyPipe');
+        console.log('Inside transform of CustomCurrencyPipe', value, currency);
         if (currency != null) {
             value = fx.convert(value, { from: "USD", to: currency });
             return currency + ' ' + value;

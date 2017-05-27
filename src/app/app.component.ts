@@ -54,6 +54,7 @@ export class AppComponent {
   }
 
   onCurrencyChange(selectedCurrency: string) {
+    console.log('onCurrencyChange', selectedCurrency);
     this._store.dispatch(new currencies.ChangeCurrencyAction(selectedCurrency));
   }
 }

@@ -9,8 +9,9 @@ export class CurrenciesComponent {
 
   constructor() { }
 
-  @Input() currencies: Array<string>; 
-  @Input() selectedCurrency: string; 
+  @Input() currencies: Array<string>;
+  @Input() selectedCurrency: string;
   @Output() currencySelected = new EventEmitter();
 
+  
 }

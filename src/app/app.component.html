@@ -3,8 +3,8 @@
 </h1>
 <hr>
 <new-operation (addOperation)="addOperation($event)"></new-operation>
-<app-currencies [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async" (currencySelected)="onCurrencyChange($event)"></app-currencies>
+<app-currencies (currencySelected)="onCurrencyChange($event)" [currencies]="currencies | async" [selectedCurrency]="selectedCurrency | async" ></app-currencies>
 <hr>
-<operations-list [operations]="operations | async" (deleteOperation)="deleteOperation($event)" (incrementOperation)="incrementOperation($event)"
+<operations-list [operations]="operations | async" [selectedCurrency]="selectedCurrency | async" (deleteOperation)="deleteOperation($event)" (incrementOperation)="incrementOperation($event)"
   (decrementOperation)="decrementOperation($event)">
 </operations-list>

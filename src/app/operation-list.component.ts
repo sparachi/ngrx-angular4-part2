@@ -1,6 +1,6 @@
 
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {Operation} from "./models/operation.model";
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Operation } from "./models/operation.model";
 
 @Component({
   selector: 'operations-list',
@@ -10,9 +10,10 @@ import {Operation} from "./models/operation.model";
 })
 
 export class OperationsList {
-  @Input() operations:Array<Operation>;
-
-  constructor() {}
+  @Input() operations: Array<Operation>;
+  @Input() selectedCurrency: string;
+  
+  constructor() { }
 
   @Output() deleteOperation = new EventEmitter();
   @Output() incrementOperation = new EventEmitter();
