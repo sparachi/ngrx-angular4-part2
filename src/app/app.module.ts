@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppComponent } from './app.component';
@@ -30,7 +31,11 @@ import { CustomCurrencyPipe } from "./pipes/currency.pipe";
     HttpModule,
     NgbModule.forRoot(),
     StoreModule.provideStore(appReducer),
-    EffectsModule.run(CurrencyEffects)
+    EffectsModule.run(CurrencyEffects),
+    // Note that you must instrument after importing StoreModule
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    })
   ],
   providers: [CurrencyService],
   bootstrap: [AppComponent]
