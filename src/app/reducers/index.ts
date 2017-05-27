@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { compose } from "@ngrx/core";
 
 import * as fromOperations from "./operations";
+import * as fromCurrencies from "./currencies";
 
 /*
 combineReducers is a function that takes an object with all the reducer functions as property values and extracts its keys. 
@@ -16,20 +17,22 @@ The return value is an object which contains the key-value pairs of the reducers
 
 // custom top level 'State' interface
 export interface AppState {
-    operations: fromOperations.State
+    operations: fromOperations.State,
+    currencies: fromCurrencies.State
 }
 
 // this reducers variable represents map of all reducer functions that are going to be grouped in this meta reducer
 // above AppState keys, and below keys must match
 const reducersList = {
-    operations: fromOperations.reducer
+    operations: fromOperations.reducer,
+    currencies: fromCurrencies.reducer
 }
 
 // this will still work const ourCombinedReducer = combineReducers(reducersList);
-// but our actions are of type 'Action' so we would like to leverage ActionReducer
-const ourCombinedReducer : ActionReducer<AppState> = combineReducers(reducersList);
+// but our actions are of type 'Action' so we would like to leverage ActionReducer type checking
+const ourCombinedReducer: ActionReducer<AppState> = combineReducers(reducersList);
 
-export function appReducer(state: any, action: any){
+export function appReducer(state: any, action: any) {
     // syntax of ActionReducer is https://github.com/ngrx/store/blob/master/src/reducer.ts 
     return ourCombinedReducer(state, action);
 }
@@ -44,13 +47,17 @@ export function appReducer(state: any, action: any){
     entities: [...array of operations]
 }
 */
-export function getOperations(state$: Observable<AppState>) {
+export function getOperationsInAppState(state$: Observable<AppState>) {
     return state$.select(state => state.operations);
+}
+
+export function getCurrenciesInAppState(state$: Observable<AppState>) {
+    return state$.select(state => state.currencies);
 }
 
 // this function will return the entities in an operation. 
 // It must be actually in operations.ts file, moved here for easy understanding
-export function getEntitiesInOperation(state$: Observable<fromOperations.State>){
+export function getEntitiesInOperation(state$: Observable<fromOperations.State>) {
     return state$.select(s => s.entities);
 }
 
@@ -64,4 +71,8 @@ syntax of compose() https://github.com/ngrx/core/blob/master/src/compose.ts
 Below, getOperations first access the 'operations' state from the root state tree and feeds to 
 getEntitiesInOperation function which then gets the value of 'entities' property
 */
-export const getEntitiesData = compose(getEntitiesInOperation, getOperations);
+export const getEntitiesData = compose(getEntitiesInOperation, getOperationsInAppState);
+
+export const getCurrencyData = compose(fromCurrencies.getCurrencies, getCurrenciesInAppState);
+export const getSelectedCurrencyData = compose(fromCurrencies.getSelectedCurrency, getCurrenciesInAppState);
+export const getRatesData = compose(fromCurrencies.getRates, getCurrenciesInAppState);

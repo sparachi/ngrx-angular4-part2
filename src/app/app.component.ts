@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 
 import { Operation } from "./models/operation.model";
 import * as operations from './actions/operations';
+import * as currencies from './actions/currencies';
 import * as fromRoot from './reducers/index';
 
 @Component({
@@ -15,6 +16,8 @@ export class AppComponent {
   title = 'ngrx example app!';
 
   public operations: Observable<Operation[]>;
+  public currencies: Observable<string[]>;
+  public selectedCurrency: Observable<string>;
   public id: number = 0;
 
   constructor(private _store: Store<any>) {
@@ -26,14 +29,16 @@ export class AppComponent {
     //  reusable block of code to be inserted at a particular slot in an observable chain.
     // below we are chaining the observable with two functions to select the subset of data
     this.operations = _store.let(fromRoot.getEntitiesData);
+    this.currencies = _store.let(fromRoot.getCurrencyData);
+    this.selectedCurrency = _store.let(fromRoot.getSelectedCurrencyData);
   }
 
   addOperation(operation) {
     this._store.dispatch(new operations.AddOperationAction({
-      
-        id: ++this.id,
-        reason: operation.reason,
-        amount: operation.amount
+
+      id: ++this.id,
+      reason: operation.reason,
+      amount: operation.amount
     }));
   }
 
@@ -45,5 +50,9 @@ export class AppComponent {
   }
   deleteOperation(operation) {
     this._store.dispatch(new operations.RemoveOperationAction(operation));
+  }
+
+  onCurrencyChange(selectedCurrency: string) {
+    this._store.dispatch(new currencies.ChangeCurrencyAction(selectedCurrency));
   }
 }
