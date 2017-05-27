@@ -31,6 +31,7 @@ export class AppComponent {
     this.operations = _store.let(fromRoot.getEntitiesData);
     this.currencies = _store.let(fromRoot.getCurrencyData);
     this.selectedCurrency = _store.let(fromRoot.getSelectedCurrencyData);
+    _store.dispatch( new currencies.LoadCurrencyRateAction(''))
   }
 
   addOperation(operation) {

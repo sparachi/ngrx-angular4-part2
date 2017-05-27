@@ -17,7 +17,7 @@ export class LoadCurrencyRateAction implements Action {
 }
 
 export class LoadRatesCompleteAction implements Action {
-    type = ActionTypes.LOAD_CURRENCY_RATES;
+    type = ActionTypes.LOAD_CURRENCY_COMPLETE;
     constructor(public payload: string){}
 }
 
