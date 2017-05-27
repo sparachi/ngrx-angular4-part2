@@ -1,9 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { State, Store } from "@ngrx/store";
 import * as fromRoot from '../reducers/index';
-import * as money from 'money';
-/* Requiring money.js and setting the base currency to USD. In this case, we infer that the base currency is USD. However, if you add a baseCurrency attribute to the currencies state, you can make the base currency dynamic as well. */
-const fx = money;
+
+/* Requiring money.js and setting the base currency to USD. In this case, we infer that the base currency is USD. 
+However, if you add a baseCurrency attribute to the currencies state, you can make the base currency dynamic as well. */
+// https://stackoverflow.com/questions/43104114/cannot-find-name-require-after-upgrading-to-angular4
+const fx = require('money');
 fx.base = "USD";
 
 @Pipe({
@@ -21,6 +23,7 @@ export class CustomCurrencyPipe implements PipeTransform {
     An alternative implementation would be to call getSelectedCurrency within the pipe 
     and get the selectedCurrency within the pipe. */
     transform(value: number, currency): string {
+        console.log('Inside transform of CustomCurrencyPipe');
         if (currency != null) {
             value = fx.convert(value, { from: "USD", to: currency });
             return currency + ' ' + value;

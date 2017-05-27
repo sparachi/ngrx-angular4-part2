@@ -23,7 +23,7 @@ const initiaState: State = {
 export function reducer(state = initiaState, action: currencies.Actions): State {
     switch (action.type) {
         case currencies.ActionTypes.CHANGE_CURRENCY: {
-            
+            console.log('data received', action.payload);
             return {
                 currencies: state.currencies,
                 selectedCurrency: action.payload,
